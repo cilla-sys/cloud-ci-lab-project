@@ -1,0 +1,39 @@
+# The name of your automation pipeline
+name: Cloud Service CI Pipeline
+
+# Pipeline must: Trigger on push
+on:
+  push:
+    branches: [ "main", "master" ] # Triggers whenever you push to these branches
+
+jobs:
+  build-and-test:
+    # Pipeline must: Use Ubuntu runner
+    runs-on: ubuntu-latest
+
+    steps:
+      # Pipeline must: Checkout code
+      # This downloads your code from GitHub onto the Ubuntu virtual machine
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      # Pipeline must: Set up language runtime
+      # This installs your programming language (e.g., Node.js, Python, Go)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # Specify your project's version
+
+      # Optional but necessary step: Install dependencies
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Pipeline must: Run app
+      # This starts or builds your application to ensure it compiles fine
+      - name: Build/Run application
+        run: python app.py
+
+      # Pipeline must: Run test command
+      # This executes your automated unit tests
+      - name: Run test command
+        run:  python test_app.py
