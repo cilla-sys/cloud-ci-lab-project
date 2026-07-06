@@ -6,3 +6,4 @@ def test_cloud_app():
         assert True
     except Exception as e:
         assert False, f"Crashed: {e}"
+# trigger pipeline update
